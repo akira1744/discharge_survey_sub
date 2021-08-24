@@ -53,6 +53,10 @@ def load_data():
 df = load_data()
 
 # col1　地域検索#########################################################################
+col1.markdown('## 患者数分析')
+# グラフ形式選択のボックスを追加
+graph_set = col1.selectbox('集計方法', ('集計方法を選択してください', '病院別', '疾患別'))
+
 col1.markdown('## 地域検索')
 # 都道府県
 prefsname = list(mst_hp['pref'].unique())
@@ -73,19 +77,15 @@ if select_citys != []:
 select_hp = set(mst_hp['告示番号'])
 
 # col1 医療機関指定　#############################################################
-col1.markdown('## 医療機関指定')
+col1.markdown('## 注目医療機関')
 hpnames = list(mst_hp2['hp'].unique())
 select_hpname = col1.multiselect('医療機関名', hpnames)
+
 # select_hpname = col1.multiselect('医療機関名',hpnames,default=['社会医療法人財団石心会　埼玉石心会病院'])
 select_hp_number = []
 if select_hpname != []:
     mst_hp2 = mst_hp2.loc[mst_hp2['hp'].isin(select_hpname)]
     select_hp_number = list(mst_hp2['告示番号'])
-
-col1.markdown('## グラフ設定')
-# グラフ形式選択のボックスを追加
-graph_set = col1.selectbox('グラフ選択', ('表示するグラフを選択してください', '病院別', '疾患別'))
-display_number = col1.number_input('表示件数', 10, 50, 25, step=5)
 
 # グラフ表示用の文字列を作成
 str_prefs = ' '.join(select_prefs)
@@ -96,6 +96,12 @@ str_hpnames = ' '.join(select_hpname)
 str_loc = '{}\n{}\n{}'.format(str_prefs, str_med2s, str_citys)
 
 # col2 DPC検索　###############################################################
+col2.markdown('## 　')
+col2.markdown('### 　')
+
+
+display_number = col2.number_input('表示件数', 10, 50, 25, step=5)
+
 col2.markdown('## DPC検索')
 # MDC
 mdc = list(mst_dpc['mdcname'].unique())
@@ -184,7 +190,7 @@ if graph_set == '疾患別':
     y = graph_df['value']
 
 # グラフ #######################################################################
-if graph_set != '表示するグラフを選択してください':
+if graph_set != '集計方法を選択してください':
 
     fig = plt.figure(figsize=(10, 8), facecolor='1.0')
     ax = plt.axes()
@@ -223,3 +229,28 @@ if graph_set != '表示するグラフを選択してください':
     plt.tight_layout()
 
     col3.pyplot(fig)
+
+st.markdown("""
+#
+""")
+st.markdown('***')
+
+
+link1 = 'https://www.mhlw.go.jp/stf/shingi2/0000196043_00004.html'
+link2 = 'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000198757.html'
+link3 = 'https://www.e-stat.go.jp/stat-search/files?page=1&query=%E7%97%85%E9%99%A2%E6%95%B0%E3%80%80%E7%97%85%E5%BA%8A%E6%95%B0%E3%80%80%E4%BA%8C%E6%AC%A1%E5%8C%BB%E7%99%82%E5%9C%8F&sort=open_date%20desc&layout=dataset&stat_infid=000031982297&metadata=1&data=1'
+
+st.markdown('DataSource')
+st.markdown('[ 1.令和元年度DPC導入の影響評価に係る調査「退院患者調査」の結果報告について]({}) 参考資料２（８）疾患別手術別集計、参考資料２（１）集計条件について'.format(link1))
+st.markdown('[ 2.診断群分類（DPC）電子点数表について]({}) 診断群分類（DPC）電子点数表（令和元年5月22日更新）'.format(link2))
+st.markdown('[ 3.医療施設調査 / 令和元年医療施設（動態）調査 二次医療圏・市区町村編]({}) 都道府県-二次医療圏-市町村マスタ'.format(link3))
+
+# my_expander = st.expander('DataSource')
+# with my_expander:
+#     st.markdown('[1.令和元年度DPC導入の影響評価に係る調査「退院患者調査」の結果報告について]({}) 参考資料２（８）疾患別手術別集計、参考資料２（１）集計条件について'.format(link1))
+#     st.markdown('[2.診断群分類（DPC）電子点数表について]({}) 診断群分類（DPC）電子点数表（令和元年5月22日更新）'.format(link2))
+#     st.markdown('[3.医療施設調査 / 令和元年医療施設（動態）調査 二次医療圏・市区町村編]({}) 都道府県-二次医療圏-市町村マスタとして使用'.format(link3))
+st.markdown(' ')
+st.markdown("Thanks for going through this mini-analysis with me! I'd love feedback on this, so if you want to reach out you can find me on [twitter] (https://twitter.com/inakichii).")
+
+
