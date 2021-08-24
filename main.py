@@ -84,7 +84,7 @@ if select_hpname != []:
 
 col1.markdown('## グラフ設定')
 # グラフ形式選択のボックスを追加
-graph_set = col1.selectbox('グラフ切替', ('表示するグラフを選択してください', '病院別', '疾患別'))
+graph_set = col1.selectbox('グラフ選択', ('表示するグラフを選択してください', '病院別', '疾患別'))
 display_number = col1.number_input('表示件数', 10, 50, 25, step=5)
 
 # グラフ表示用の文字列を作成
