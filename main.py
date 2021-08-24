@@ -241,7 +241,7 @@ link2 = 'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000198757.html'
 link3 = 'https://www.e-stat.go.jp/stat-search/files?page=1&query=%E7%97%85%E9%99%A2%E6%95%B0%E3%80%80%E7%97%85%E5%BA%8A%E6%95%B0%E3%80%80%E4%BA%8C%E6%AC%A1%E5%8C%BB%E7%99%82%E5%9C%8F&sort=open_date%20desc&layout=dataset&stat_infid=000031982297&metadata=1&data=1'
 
 st.markdown('DataSource')
-st.markdown('[ 1.令和元年度DPC導入の影響評価に係る調査「退院患者調査」の結果報告について]({}) 参考資料２（８）疾患別手術別集計、参考資料２（１）集計条件について'.format(link1))
+st.markdown('[ 1.令和元年度DPC導入の影響評価に係る調査「退院患者調査」の結果報告について]({}) 参考資料２（８）疾患別手術別集計　（※疾患別手術別の実績が10件未満のデータは非公開である為、0件で集計）'.format(link1))
 st.markdown('[ 2.診断群分類（DPC）電子点数表について]({}) 診断群分類（DPC）電子点数表（令和元年5月22日更新）'.format(link2))
 st.markdown('[ 3.医療施設調査 / 令和元年医療施設（動態）調査 二次医療圏・市区町村編]({}) 都道府県-二次医療圏-市町村マスタ'.format(link3))
 
@@ -252,5 +252,3 @@ st.markdown('[ 3.医療施設調査 / 令和元年医療施設（動態）調査
 #     st.markdown('[3.医療施設調査 / 令和元年医療施設（動態）調査 二次医療圏・市区町村編]({}) 都道府県-二次医療圏-市町村マスタとして使用'.format(link3))
 st.markdown(' ')
 st.markdown("Thanks for going through this mini-analysis with me! I'd love feedback on this, so if you want to reach out you can find me on [twitter] (https://twitter.com/inakichii).")
-
-
