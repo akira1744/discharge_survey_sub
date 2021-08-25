@@ -6,40 +6,34 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 from cycler import cycler
 
+
 # ページ設定
 st.set_page_config(layout="wide")
-col1, col2, col3 = st.columns([2, 2, 6])
+
 # 色のマスタ設定
 tableau_cycle = cycler(color=['#4E79A7', '#F28E2B', '#E15759', '#76B7B2',
                               '#59A14E', '#EDC949', '#B07AA2', '#FF9DA7', '#9C755F', '#BAB0AC'])
 
 # load data
-
-
 @st.cache(allow_output_mutation=True)
 def load_mst_hp():
     df = pd.read_csv('data/mst_hp.csv', encoding='cp932', dtype=object)
     return df
-
 
 @st.cache(allow_output_mutation=True)
 def load_mst_hp2():
     df = pd.read_csv('data/mst_hp.csv', encoding='cp932', dtype=object)
     return df
 
-
 mst_hp = load_mst_hp()
 mst_hp2 = load_mst_hp2()
-
 
 @st.cache(allow_output_mutation=True)
 def load_mst_dpc():
     df = pd.read_csv('data/mst_dpc.csv', encoding='cp932', dtype=object)
     return df
 
-
 mst_dpc = load_mst_dpc()
-
 
 @st.cache(allow_output_mutation=True)
 def load_data():
@@ -49,11 +43,12 @@ def load_data():
     # df = df.merge(mst_dpc[['mdc6','mdc6name']], on ='mdc6',how='left')
     return df
 
-
 df = load_data()
 
+st.markdown('# 患者数分析(2019年度退院患者調査)')
+col1, col2, col3 = st.columns([2, 2, 6])
+
 # col1　地域検索#########################################################################
-col1.markdown('## 患者数分析')
 # グラフ形式選択のボックスを追加
 graph_set = col1.selectbox('集計方法', ('集計方法を選択してください', '病院別', '疾患別'))
 
@@ -81,7 +76,6 @@ col1.markdown('## 注目医療機関')
 hpnames = list(mst_hp2['hp'].unique())
 select_hpname = col1.multiselect('医療機関名', hpnames)
 
-# select_hpname = col1.multiselect('医療機関名',hpnames,default=['社会医療法人財団石心会　埼玉石心会病院'])
 select_hp_number = []
 if select_hpname != []:
     mst_hp2 = mst_hp2.loc[mst_hp2['hp'].isin(select_hpname)]
@@ -96,21 +90,17 @@ str_hpnames = ' '.join(select_hpname)
 str_loc = '{}\n{}\n{}'.format(str_prefs, str_med2s, str_citys)
 
 # col2 DPC検索　###############################################################
-col2.markdown('## 　')
-col2.markdown('### 　')
-
-
 display_number = col2.number_input('表示件数', 10, 50, 25, step=5)
 
 col2.markdown('## DPC検索')
 # MDC
 mdc = list(mst_dpc['mdcname'].unique())
-select_mdc = col2.multiselect('MDC', mdc)
+select_mdc = col2.multiselect('MDC (病名大分類)', mdc)
 if select_mdc != []:
     mst_dpc = mst_dpc[mst_dpc['mdcname'].isin(select_mdc)]
 # MDC6
 mdc6 = list(mst_dpc['mdc6name'].unique())
-select_mdc6name = col2.multiselect('MDC6', mdc6)
+select_mdc6name = col2.multiselect('MDC6 (病名小分類)', mdc6)
 if select_mdc6name != []:
     mst_dpc = mst_dpc[mst_dpc['mdc6name'].isin(select_mdc6name)]
 # 手術
@@ -250,5 +240,3 @@ st.markdown('[ 3.医療施設調査 / 令和元年医療施設（動態）調査
 #     st.markdown('[1.令和元年度DPC導入の影響評価に係る調査「退院患者調査」の結果報告について]({}) 参考資料２（８）疾患別手術別集計、参考資料２（１）集計条件について'.format(link1))
 #     st.markdown('[2.診断群分類（DPC）電子点数表について]({}) 診断群分類（DPC）電子点数表（令和元年5月22日更新）'.format(link2))
 #     st.markdown('[3.医療施設調査 / 令和元年医療施設（動態）調査 二次医療圏・市区町村編]({}) 都道府県-二次医療圏-市町村マスタとして使用'.format(link3))
-st.markdown(' ')
-st.markdown("Thanks for going through this mini-analysis with me! I'd love feedback on this, so if you want to reach out you can find me on [twitter] (https://twitter.com/inakichii).")
