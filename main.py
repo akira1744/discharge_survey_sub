@@ -52,7 +52,7 @@ graph_set = col1.selectbox('集計方法', ('集計方法を選択してくだ�
 col1.markdown('## 地域検索')
 # 都道府県
 prefsname = list(mst_hp['pref'].unique())
-select_prefs = col1.multiselect('都道府県', prefsname,default=['東京都','埼玉県'])
+select_prefs = col1.multiselect('都道府県', prefsname)
 if select_prefs != []:
     mst_hp = mst_hp.loc[mst_hp['pref'].isin(select_prefs)]
 # 二次医療圏
@@ -71,7 +71,7 @@ select_hp = set(mst_hp['告示番号'])
 # col1 医療機関指定　#############################################################
 col1.markdown('## 注目医療機関')
 hpnames = list(mst_hp2['hp'].unique())
-select_hpname = col1.multiselect('医療機関名', hpnames,default=['社会医療法人財団石心会　埼玉石心会病院'])
+select_hpname = col1.multiselect('医療機関名', hpnames)
 
 select_hp_number = []
 if select_hpname != []:
