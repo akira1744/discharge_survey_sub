@@ -328,5 +328,5 @@ with my_expander:
     '''
                 )
 # @@@
-# st.markdown('***')
-# st.markdown("Thanks for going through this mini-analysis with me! I'd love feedback on this, so if you want to reach out you can find me on [twitter] (https://twitter.com/inakichii).")
+st.markdown('***')
+st.markdown("Thanks for going through this mini-analysis with me! I'd love feedback on this, so if you want to reach out you can find me on [twitter] (https://twitter.com/inakichii).")
